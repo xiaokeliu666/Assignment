@@ -44,15 +44,13 @@ public class EmployeeService {
     public boolean deleteById(String id) {
         Optional<Employee> findOne = findById(id);
         if(findOne.isPresent()) {
-            return false;
+            employeeDao.deleteById(id);
+            return true;
         }
-        employeeDao.deleteById(id);
-        return true;
+        return false;
     }
 
     public void updateById(Employee employee) {
         employeeDao.save(employee);
     }
-
-
 }

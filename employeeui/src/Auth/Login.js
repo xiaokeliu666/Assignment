@@ -12,6 +12,7 @@ function Login(props) {
                 if (response['status']) {
                     localStorage.setItem("token",response['token'])
                     message.success("Welcome!")
+                    // setTimeout(props.history.push("/index"),1000)
                     props.history.push("/index");
                 } else {
                     console.log(JSON.stringify(values))
@@ -63,7 +64,6 @@ function Login(props) {
             </Form>
         </div>
     );
-
 }
 
 export default Login;

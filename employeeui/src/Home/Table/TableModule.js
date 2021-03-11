@@ -100,23 +100,23 @@ function TableModule(props) {
     ]
     // Dependency of useEffect()
     const [flag, setFlag] = useState(false);
-    console.log(props.info)
+    // console.log(props.info)
     // Fetch data from the server
     const fetchData = () => {
         if (props.info !== '' || props.title !== '') {
-            console.log("findByInfo")
-            console.log(props.info)
-            console.log(props.title)
+            // console.log("findByInfo")
+            // console.log(props.info)
+            // console.log(props.title)
             // Fetch the result of search
             let condition = {info: props.info, title: props.title}
-            console.log(JSON.stringify(condition))
+            // console.log(JSON.stringify(condition))
             findByInfoApi(props.curPage, pageSize, condition)
                 .then((response) => {
                     setData(response['data']['content'])
                     setTotalAmount((response['data']['totalElements']))
                 })
         } else {
-            console.log("listApi")
+            // console.log("listApi")
             // Fetch all the employees
             listApi(props.curPage, pageSize)
                 .then((response) => {
@@ -146,7 +146,8 @@ function TableModule(props) {
                 pagination={{
                     total: totalAmount,
                     pageSize: 5,
-                    onChange: changePage
+                    onChange: changePage,
+                    current: props.curPage
                 }}
             />
             <FormModule

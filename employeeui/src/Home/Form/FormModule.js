@@ -7,22 +7,21 @@ import { addApi,updateApi } from "../../services/employee";
 const FormModule = (props) => {
 	const [form] = Form.useForm()
 	const resetHandler = () => {form.resetFields();}
-	useEffect(()=>console.log("FormModule中接到的selected:"+JSON.stringify(props.selected)),[])
+	// useEffect(()=>console.log("FormModule中接到的selected:"+JSON.stringify(props.selected)),[])
 	form.setFieldsValue({...props.selected})
 	const onFinish = (values) => {
 		props.setIsShown(false)
 		// props.setIsAdd(true)
 		// props.setSelected({})
 		resetHandler()
-		console.log("onFinish:"+JSON.stringify(values))
-		console.log("onFinish:"+props.isAdd)
+		// console.log("onFinish:"+JSON.stringify(values))
+		// console.log("onFinish:"+props.isAdd)
 		if(props.isAdd) {
 			addApi(values)
 				.then((response) => {
-					console.log("response!!!!"+JSON.stringify(response))
+					// console.log("response!!!!"+JSON.stringify(response))
 					if(response.status) {
 						message.success("Success!")
-						// props.setFlag(!props.flag)
 						props.history.push('/index')
 					}
 					else message.error(response.msg)
@@ -37,7 +36,7 @@ const FormModule = (props) => {
 	}
 	const onCancel = () => {
 		props.setIsShown(false)
-		console.log("onCancel:"+JSON.stringify(props.selected))
+		// console.log("onCancel:"+JSON.stringify(props.selected))
 		resetHandler()
 	}
 	return (
@@ -60,13 +59,18 @@ const FormModule = (props) => {
 					<Form.Item label='Id' name='id' rules={[{ required: true, message: 'ID required!' }]}>
 						<Input value={props.selected.id} disabled={!props.isAdd}/>
 					</Form.Item>
-					<Form.Item label='Name' name='name'>
+					<Form.Item label='Name' name='name' rules={[{ required: true, message: 'Name required!' }]}>
 						<Input value={props.selected.name}/>
 					</Form.Item>
 					<Form.Item label='Surname' name='surname'>
 						<Input value={props.selected.surname}/>
 					</Form.Item>
-					<Form.Item label='Phone' name='phone'>
+					<Form.Item label='Phone' name='phone' rules={[
+						{
+							pattern: /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
+							message: 'Invalid phone number'
+						}
+					]}>
 						<Input value={props.selected.phone}/>
 					</Form.Item>
 					<Form.Item label='Address' name='address'>

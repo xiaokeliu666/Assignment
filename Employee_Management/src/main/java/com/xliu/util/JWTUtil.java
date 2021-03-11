@@ -38,9 +38,9 @@ public class JWTUtil {
      *      token info(token,header,payload,signature)
      */
     public static DecodedJWT verify(String token) {
-        if(token==null) {
-            return null;
-        }
+//        if(token==null) {
+//            return null;
+//        }
         return JWT.require(Algorithm.HMAC256(SIGNATURE)).build().verify(token);
     }
 }

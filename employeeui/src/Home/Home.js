@@ -10,9 +10,9 @@ import ToolbarModule from "./Toolbar/ToolbarModule";
 function Home(props) {
 	// Data Display
 	const [curPage, setCurPage] = useState(1)
-	const [pageSize, setPageSize] = useState(5)
-	const [data, setData] = useState([])
-	const [totalAmount, setTotalAmount] = useState(0)
+	// const [pageSize, setPageSize] = useState(5)
+	// const [data, setData] = useState([])
+	// const [totalAmount, setTotalAmount] = useState(0)
 
 	// Modal Display
 	const [visible, setVisible] = useState(false)
@@ -47,7 +47,7 @@ function Home(props) {
 				setTitle={setTitle}
 				setFlag={setFlag}
 				setCurPage={setCurPage}
-				flag={flag}
+				// flag={flag}
 				history={props.history}
 			/>
 			<TableModule
@@ -61,11 +61,11 @@ function Home(props) {
 				visible={visible}
 				selected={selected}
 				isAdd={isAdd}
-				flag={flag}
+				// flag={flag}
 				setIsAdd={setIsAdd}
 				setSelected={setSelected}
 				setVisible={setVisible}
-				setFlag={setFlag}
+				// setFlag={setFlag}
 			/>
 		</Fragment>
 	)

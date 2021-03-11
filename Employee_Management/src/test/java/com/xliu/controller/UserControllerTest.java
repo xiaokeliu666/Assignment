@@ -34,7 +34,7 @@ public class UserControllerTest {
     public void testLogin() throws Exception {
         User user = new User("admin","123456");
         when(userService.login("admin","123456")).thenReturn(user);
-        mockMvc.perform(post("/user/login").contentType(APPLICATION_JSON_UTF8)
+        mockMvc.perform(post("/user/").contentType(APPLICATION_JSON_UTF8)
                 .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().isOk());
     }

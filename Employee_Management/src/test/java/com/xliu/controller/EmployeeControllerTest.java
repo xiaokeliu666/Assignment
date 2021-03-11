@@ -68,7 +68,7 @@ class EmployeeControllerTest {
     void list() throws Exception {
         Page<Employee> pagedEmployee = new PageImpl(list);
         when(employeeService.findAll("1","5")).thenReturn(pagedEmployee);
-        MvcResult result = mockMvc.perform(get("/employee/list/1/5").contentType(APPLICATION_JSON_UTF8)
+        MvcResult result = mockMvc.perform(get("/employee/1/5").contentType(APPLICATION_JSON_UTF8)
                 .header("token", EmployeeControllerTest.token))
                 .andReturn();
         String contentAsString = result.getResponse().getContentAsString();
@@ -88,7 +88,7 @@ class EmployeeControllerTest {
         newEmployee.put("title","Manager");
 
         when(employeeService.addEmployee(any(Employee.class))).thenReturn(true);
-        MvcResult result = mockMvc.perform(post("/employee/add")
+        MvcResult result = mockMvc.perform(post("/employee/")
                             .contentType(APPLICATION_JSON_UTF8).content(String.valueOf(new JSONObject(newEmployee)))
                             .header("token",token))
                             .andReturn();
@@ -102,7 +102,7 @@ class EmployeeControllerTest {
         String id = "IT001";
         when(employeeService.deleteById(id)).thenReturn(true);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                .delete("/employee/delete/{id}",id))
+                .delete("/employee/{id}",id))
                 .andExpect(status().isOk())
                 .andReturn();
         String contentAsString = result.getResponse().getContentAsString();
@@ -114,7 +114,7 @@ class EmployeeControllerTest {
     void update() throws Exception {
         Employee e = new Employee("IT001","Scott","Sam","8732880212","255 Wilbrod Street","Developer");
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                .put("/employee/update/{id}",e.getId())
+                .put("/employee/{id}",e.getId())
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(objectMapper.writeValueAsString(e)))
                 .andReturn();
@@ -131,7 +131,7 @@ class EmployeeControllerTest {
         Page<Employee> pagedEmployee = new PageImpl(expectResult);
         when(employeeService.findByInfo("IT","Developer","1","5")).thenReturn(pagedEmployee);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                .post("/employee/findBy/1/5")
+                .post("/employee/1/5")
                 .contentType(APPLICATION_JSON_UTF8)
                 .header("token",token)
                 .content(objectMapper.writeValueAsString(condition)))

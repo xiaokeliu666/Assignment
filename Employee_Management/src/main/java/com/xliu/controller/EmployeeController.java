@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/employee")
+//@CrossOrigin(origins = "*")
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping("/list/{pageIndex}/{pageSize}")
+    @GetMapping("/{pageIndex}/{pageSize}")
     public Map<String,Object> list(@PathVariable String pageIndex, @PathVariable String pageSize) {
         Page<Employee> findAll = employeeService.findAll(pageIndex, pageSize);
         Map<String,Object> res = new HashMap<>();
@@ -27,7 +27,7 @@ public class EmployeeController {
         return res;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public Map<String,Object> add(@RequestBody Employee employee) {
         Map<String,Object> res = new HashMap<>();
         if(!employeeService.addEmployee(employee)) {
@@ -43,7 +43,7 @@ public class EmployeeController {
         return res;
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public Map<String,Object> delete(@PathVariable String id) {
         Map<String,Object> res = new HashMap<>();
         if (employeeService.deleteById(id)) {
@@ -56,7 +56,7 @@ public class EmployeeController {
         return res;
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public Map<String,Object> update(@PathVariable String id, @RequestBody Employee employee) {
         employee.setId(id);
         Map<String,Object> res = new HashMap<>();
@@ -76,7 +76,7 @@ public class EmployeeController {
     // Since MySQL is not case sensitive on Windows by default, if you wanna find employee list of IT department by inputting "IT",
     // you may get people whose name contains "it", such as Smith.
     // However, if we deploy this project on a Linux server and MySQL is case sensitive on Linux, "Smith" won't show up in the result.
-    @PostMapping("/findBy/{pageIndex}/{pageSize}")
+    @PostMapping("/{pageIndex}/{pageSize}")
     public Map<String,Object> findBy(@RequestBody Condition condition, @PathVariable String pageIndex, @PathVariable String pageSize) {
         Map<String,Object> res = new HashMap<>();
         Page<Employee> findByInfo = employeeService.findByInfo(condition.getInfo(), condition.getTitle(), pageIndex, pageSize);

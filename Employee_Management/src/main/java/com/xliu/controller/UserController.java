@@ -17,13 +17,13 @@ import java.util.Map;
 
 @RestController
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/user")
+//@CrossOrigin(origins = "*")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/login")
+    @PostMapping("/")
     public Map<String,Object> login(@RequestBody User user){
         System.out.println("LOGIN INVOKED...");
         log.info("USERNAME:[{}]",user.getUsername());
@@ -37,7 +37,7 @@ public class UserController {
             Map<String,String> payload = new HashMap<>();
             payload.put("username",user.getUsername());
             String token = JWTUtil.getToken(payload);
-            System.out.println("登录成功:" + token);
+            log.info("Get the token: " + token);
             map.put("status",true);
             map.put("msg","Success!");
             map.put("token",token);
